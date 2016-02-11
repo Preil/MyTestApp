@@ -5,7 +5,10 @@ package com.eurochemix.webapp.model;
  */
 public class Main {
 
+    enum Season {WINTER, SPRING, SUMMER, AUTUMN}
+
     public static void main(String[] args) {
+
 
         System.out.println("Hello world!!");
         Link l1 = new Link("Eurochemix", "eurochemix.com");
@@ -23,7 +26,7 @@ public class Main {
         printInt(5);
 
 
-    }
+
 
     private static void printInt(Integer obj) {
         System.out.println("Object: " + obj);
