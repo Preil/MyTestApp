@@ -15,12 +15,14 @@ public class Resume {
     private List<Contact> contacts = new LinkedList<>();
     private List<Section> sections = new LinkedList<>();
 
-    public Resume(String uuid, String fullName, String location, String homePage) {
+    public Resume(String fullName, String location, String homePage) {
         this.uuid = UUID.randomUUID().toString();
         this.fullName = fullName;
         this.location = location;
         this.homePage = homePage;
     }
+
+
 
     public String getUuid() {
         return uuid;
