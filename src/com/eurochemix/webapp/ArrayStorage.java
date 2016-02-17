@@ -7,8 +7,9 @@ import java.util.Collection;
 /**
  * Created by Ilya on 14.02.2016.
  */
-public class ArrayStorage implements IStorage{
-    private Resume[] array = new Resume[100];
+public class ArrayStorage implements IStorage {
+    public static final int LIMIT = 100;
+    private Resume[] array = new Resume[LIMIT];
 
     @Override
     public void clear() {
@@ -17,6 +18,20 @@ public class ArrayStorage implements IStorage{
 
     @Override
     public void save(Resume r) {
+        for (int i = 0; i < LIMIT; i++) {
+            Resume resume = array[i];
+            if (array[i] != null) {
+                if (r.equals(resume)) {
+                    throw new IllegalStateException("Already present");
+                }
+            }
+        }
+        for (int i = 0; i < LIMIT; i++) {
+            if (array[i] == null) {
+                array[i] = r;
+            }
+        }
+
 
     }
 
@@ -42,11 +57,11 @@ public class ArrayStorage implements IStorage{
 
     @Override
     public int size() {
-        for (int i = 0; i<= array.length; i++){
-            
-            if ( boolean b = array[i] == null;)
-        }
-        
-        return ;
+//        for (int i = 0; i<= array.length; i++){
+
+//            if ( boolean b = array[i] == null;)
+//        }
+
+        return 0;
     }
 }
