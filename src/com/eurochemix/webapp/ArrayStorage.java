@@ -12,7 +12,7 @@ public class ArrayStorage implements IStorage{
 
     @Override
     public void clear() {
-        array[i]=null;
+//        array[i]=null;
     }
 
     @Override
@@ -42,6 +42,11 @@ public class ArrayStorage implements IStorage{
 
     @Override
     public int size() {
-        return 0;
+        for (int i = 0; i<= array.length; i++){
+            
+            if ( boolean b = array[i] == null;)
+        }
+        
+        return ;
     }
 }
