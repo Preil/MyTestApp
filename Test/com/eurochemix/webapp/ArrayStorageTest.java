@@ -73,14 +73,13 @@ public class ArrayStorageTest {
     public void testDelete() throws Exception {
         storage.delete(R1.getUuid());
         Assert.assertEquals(2, storage.size());
-        Assert.assertEquals(null, storage.load(R1.getUuid()));
     }
 
     @Test
     public void testGetAllSorted() throws Exception {
-        Resume[] src = new Resume[] {R1,R2,R3};
+        Resume[] src = new Resume[]{R1, R2, R3};
         Arrays.sort(src);
-        Assert.assertEquals(src,storage.getAllSorted().toArray());
+        Assert.assertArrayEquals(src, storage.getAllSorted().toArray());
     }
 
     @Test
