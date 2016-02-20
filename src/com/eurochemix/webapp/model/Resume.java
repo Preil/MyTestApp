@@ -2,6 +2,7 @@ package com.eurochemix.webapp.model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -15,11 +16,27 @@ public class Resume {
     private List<Contact> contacts = new LinkedList<>();
     private List<Section> sections = new LinkedList<>();
 
+
+    public Resume(String uuid, String fullName, String location, String homePage) {
+        this.uuid = uuid;
+        this.fullName = fullName;
+        this.location = location;
+        this.homePage = homePage;
+    }
+
     public Resume(String fullName, String location, String homePage) {
         this.uuid = UUID.randomUUID().toString();
         this.fullName = fullName;
         this.location = location;
         this.homePage = homePage;
+    }
+
+    public void addSection(Section section) {
+        sections.add(section);
+    }
+
+    public void addContact(Contact contact) {
+        contacts.add(contact);
     }
 
 
@@ -48,28 +65,27 @@ public class Resume {
         return sections;
     }
 
-    public void addSection(Section section) {
-        sections.add(section);
-    }
-
-    public void addContact(Contact contact) {
-        contacts.add(contact);
-    }
-
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Resume resume = (Resume) o;
-        return uuid.equals(resume.uuid);
-
-    }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+
+        return Objects.hash(uuid, fullName, location, homePage, contacts, sections);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final Resume other = (Resume) obj;
+        return Objects.equals(this.uuid, other.uuid)
+                && Objects.equals(this.fullName, other.fullName)
+                && Objects.equals(this.location, other.location)
+                && Objects.equals(this.homePage, other.homePage)
+                && Objects.equals(this.contacts, other.contacts)
+                && Objects.equals(this.sections, other.sections);
     }
 }
