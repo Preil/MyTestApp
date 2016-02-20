@@ -51,7 +51,10 @@ public class ArrayStorage implements IStorage {
 
     @Override
     public Resume load(String uuid) {
-        return null;
+        LOGGER.info("Load resume with uuid = " + uuid);
+        int idx = getIndex(uuid);
+        if (idx == -1) throw new WebAppException("Resume " + uuid + " not exist");
+        return array[idx];
     }
 
     @Override
@@ -59,25 +62,21 @@ public class ArrayStorage implements IStorage {
         LOGGER.info("Delete resume with " + uuid);
         int idx = getIndex(uuid);
         if (idx == -1) throw new WebAppException("Resume " + uuid + " not exist");
-        int numMove = size - idx -1;
-        if (numMove<0) System.arraycopy(array,idx+1,array,idx, numMove);
-        array[--size]=null;
+        int numMove = size - idx - 1;
+        if (numMove < 0) System.arraycopy(array, idx + 1, array, idx, numMove);
+        array[--size] = null;
 
     }
 
     @Override
     public Collection<Resume> getAllSorted() {
-        return null;
+        Arrays.sort(array, 0, size);
+        return Arrays.asList(Arrays.copyOf(array, size));
     }
 
     @Override
     public int size() {
-//        for (int i = 0; i<= array.length; i++){
-
-//            if ( boolean b = array[i] == null;)
-//        }
-
-        return 0;
+        return size;
     }
 
     private int getIndex(String uuid) {
