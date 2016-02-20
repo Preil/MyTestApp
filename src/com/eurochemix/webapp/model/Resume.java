@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Created by Ilya on 08.02.2016.
  */
-public class Resume {
+public class Resume implements Comparable<Resume> {
     private String uuid;
     private String fullName;
     private String location;
@@ -66,6 +66,22 @@ public class Resume {
     }
 
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setHomePage(String homePage) {
+        this.homePage = homePage;
+    }
+
     @Override
     public int hashCode() {
 
@@ -87,5 +103,10 @@ public class Resume {
                 && Objects.equals(this.homePage, other.homePage)
                 && Objects.equals(this.contacts, other.contacts)
                 && Objects.equals(this.sections, other.sections);
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return fullName.compareTo(o.fullName);
     }
 }
