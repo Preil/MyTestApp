@@ -2,7 +2,6 @@ package com.eurochemix.webapp.model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -38,7 +37,6 @@ public class Resume implements Comparable<Resume> {
     public void addContact(Contact contact) {
         contacts.add(contact);
     }
-
 
 
     public String getUuid() {
@@ -84,8 +82,7 @@ public class Resume implements Comparable<Resume> {
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(uuid, fullName, location, homePage, contacts, sections);
+        return uuid.hashCode();
     }
 
     @Override
@@ -97,12 +94,7 @@ public class Resume implements Comparable<Resume> {
             return false;
         }
         final Resume other = (Resume) obj;
-        return Objects.equals(this.uuid, other.uuid)
-                && Objects.equals(this.fullName, other.fullName)
-                && Objects.equals(this.location, other.location)
-                && Objects.equals(this.homePage, other.homePage)
-                && Objects.equals(this.contacts, other.contacts)
-                && Objects.equals(this.sections, other.sections);
+        return uuid.equals(other.uuid);
     }
 
     @Override
