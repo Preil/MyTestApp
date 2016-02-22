@@ -13,5 +13,11 @@ public class Main {
         f.setAccessible(true);
         Link l = new Link("Eurochemix", "url:eurochemix.com");
         System.out.println(f.get(l));
+
+        StringBuilder fill = new StringBuilder() ;
+        for (int i=0;i<=100;i++){
+            fill.append("~");
+        }
+        System.out.println(fill.toString());
    }
 }
