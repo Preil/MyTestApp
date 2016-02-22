@@ -30,6 +30,10 @@ public class Resume implements Comparable<Resume> {
         this.homePage = homePage;
     }
 
+    public Resume() {
+
+    }
+
     public void addSection(Section section) {
         sections.add(section);
     }
