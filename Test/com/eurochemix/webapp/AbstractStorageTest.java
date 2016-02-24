@@ -1,6 +1,5 @@
 package com.eurochemix.webapp;
 
-import com.eurochemix.webapp.model.Contact;
 import com.eurochemix.webapp.model.ContactType;
 import com.eurochemix.webapp.model.Resume;
 import org.junit.Before;
@@ -24,16 +23,16 @@ abstract public class AbstractStorageTest {
     @Before
     public void before() {
         R1 = new Resume("Полное имя1", "Локация1", "www-ленинрад-спб.ру");
-        R1.addContact(new Contact(ContactType.MAIL, "mailme.gmail.com"));
-        R1.addContact(new Contact(ContactType.PHONE, "777-77-77"));
+        R1.addContact(ContactType.MAIL, "mailme.gmail.com");
+        R1.addContact(ContactType.PHONE, "777-77-77");
 
         R2 = new Resume("Полное имя2", "Локация2", "www.yandex.ua");
-        R2.addContact(new Contact(ContactType.MAIL, "mailme.yandex.com"));
-        R2.addContact(new Contact(ContactType.SKYPE, "preil200"));
+        R2.addContact(ContactType.MAIL, "mailme.yandex.com");
+        R2.addContact(ContactType.SKYPE, "preil200");
 
         R3 = new Resume("Полное имя3", "Локация3", "www.google.ру");
-        R3.addContact(new Contact(ContactType.MAIL, "mailme.hotbox.com"));
-        R3.addContact(new Contact(ContactType.PHONE, "222-55-11"));
+        R3.addContact(ContactType.MAIL, "mailme.hotbox.com");
+        R3.addContact(ContactType.PHONE, "222-55-11");
 
         storage.clear();
         storage.save(R2);

@@ -4,6 +4,7 @@ import com.eurochemix.webapp.model.Resume;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -66,7 +67,15 @@ abstract public class AbstractStorage implements IStorage {
     public Collection<Resume> getAllSorted() {
         logger.info("getAllsorted");
         List<Resume> list = doGetAll();
-        Collections.sort(list);
+        Collections.sort(list, new Comparator<Resume>(){
+            @Override
+            public int compare(Resume o1, Resume o2){
+                int cmp = o1.getFullName().compareTo(o2.getFullName());
+                if(cmp!=0) return cmp;
+                return o1.getUuid().compareTo(o2.getUuid());
+            }
+
+        });
         return list;
     }
 
