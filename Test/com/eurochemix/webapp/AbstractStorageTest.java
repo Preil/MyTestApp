@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -78,7 +79,14 @@ abstract public class AbstractStorageTest {
     @Test
     public void testGetAllSorted() throws Exception {
         List<Resume> list = Arrays.asList(R1, R2, R3);
-        Collections.sort(list);
+        Collections.sort(list, new Comparator<Resume>() {
+            @Override
+            public int compare(Resume o1, Resume o2) {
+                int cmp = o1.getFullName().compareTo(o2.getFullName());
+                if(cmp!=0) return cmp;
+                return o1.getFullName().compareTo(o2.getFullName());
+            }
+        });
         assertEquals(list, storage.getAllSorted());
         System.out.println(list);
         System.out.println(storage.getAllSorted());
