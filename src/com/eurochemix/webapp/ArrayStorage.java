@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Ilya on 14.02.2016.
  */
-public class ArrayStorage extends AbstractStorage {
+public class ArrayStorage extends AbstractStorage<Integer> {
     public static final int LIMIT = 100;
 
     private Resume[] array = new Resume[LIMIT];
@@ -20,36 +20,31 @@ public class ArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    @Override
-    protected boolean exist(String uuid) {
-        return getIndex(uuid) != -1;
-    }
 
     @Override
-    protected void doSave(Resume r) {
-        int idx = getIndex(r.getUuid());
-        if(idx!=-1) throw new WebAppException("Resume "+ r.getUuid()+ " already exist",r);
+    protected boolean exist(Integer idx) {
+        return idx != -1;
+    }
+
+
+    @Override
+    protected void doSave(Integer idx, Resume r) {
         array[size++] = r;
-
     }
 
     @Override
-    protected void doUpdate(Resume r) {
-        int idx = getIndex(r.getUuid());
+    protected void doUpdate(Integer idx, Resume r) {
         if (idx == -1) throw new WebAppException("Resume " + r.getUuid() + " not exist", r);
         array[idx] = r;
     }
 
     @Override
-    protected Resume doLoad(String uuid) {
-        int idx = getIndex(uuid);
+    protected Resume doLoad(Integer idx) {
         return array[idx];
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        int idx = getIndex(uuid);
-        if (idx == -1) throw new WebAppException("Resume " + uuid + " not exist");
+    protected void doDelete(Integer idx) {
         int numMove = size - idx - 1;
         if (numMove < 0) System.arraycopy(array, idx + 1, array, idx, numMove);
         array[--size] = null;
@@ -66,7 +61,8 @@ public class ArrayStorage extends AbstractStorage {
         return size;
     }
 
-    private int getIndex(String uuid) {
+    @Override
+    protected Integer getContext(String uuid) {
         for (int i = 0; i < LIMIT; i++) {
             if (array[i] != null) {
                 if (array[i].getUuid().equals(uuid)) return i;
