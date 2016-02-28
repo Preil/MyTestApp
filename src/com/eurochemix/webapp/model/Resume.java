@@ -11,7 +11,7 @@ public class Resume {//implements Comparable<Resume> {
     private String location;
     private String homePage;
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
-    private List<Section> sections = new LinkedList<>();
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
 
     public Resume(String uuid, String fullName, String location, String homePage) {
@@ -32,13 +32,14 @@ public class Resume {//implements Comparable<Resume> {
 
     }
 
-    public void addSection(Section section) {
-        sections.add(section);
+    public void addSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }
+
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
@@ -61,8 +62,8 @@ public class Resume {//implements Comparable<Resume> {
     }
 
 
-    public List<Section> getSections() {
-        return sections;
+    public Section getSections(SectionType type) {
+        return sections.get(type);
     }
 
 
@@ -97,6 +98,18 @@ public class Resume {//implements Comparable<Resume> {
         }
         final Resume other = (Resume) obj;
         return uuid.equals(other.uuid);
+    }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", location='" + location + '\'' +
+                ", homePage='" + homePage + '\'' +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
+                '}';
     }
 
     //@Override
