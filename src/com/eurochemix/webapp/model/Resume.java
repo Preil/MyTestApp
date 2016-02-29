@@ -13,6 +13,13 @@ public class Resume {//implements Comparable<Resume> {
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
+    public static final Resume EMPTY;
+
+    static { // Статический блок инициализации, который выполняется один раз при загрузки класса
+        EMPTY = new Resume();
+
+    }
+
 
     public Resume(String uuid, String fullName, String location, String homePage) {
         this.uuid = uuid;
@@ -44,6 +51,13 @@ public class Resume {//implements Comparable<Resume> {
         return contacts.get(type);
     }
 
+    public Map<ContactType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Section> getSections() {
+        return sections;
+    }
 
     public String getUuid() {
         return uuid;
