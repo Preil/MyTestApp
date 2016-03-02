@@ -1,9 +1,12 @@
 package com.eurochemix.webapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Ilya on 09.02.2016.
  */
-public class Link {
+public class Link implements Serializable {
+
     public static Link EMPTY = new Link();
     private final String name;
     private final String url;

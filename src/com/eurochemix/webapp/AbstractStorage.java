@@ -2,6 +2,7 @@ package com.eurochemix.webapp;
 
 import com.eurochemix.webapp.model.Resume;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +28,7 @@ abstract public class AbstractStorage<C> implements IStorage {
     protected abstract C getContext(String uuid);
 
     @Override
-    public void save(Resume r) {
+    public void save(Resume r) throws IOException {
         logger.info("Save resume with uuid = " + r.getUuid());
         C ctx = getContext(r);
         if (exist(ctx))
@@ -35,7 +36,7 @@ abstract public class AbstractStorage<C> implements IStorage {
         doSave(ctx, r);
     }
 
-    protected abstract void doSave(C ctx, Resume r);
+    protected abstract void doSave(C ctx, Resume r) throws IOException;
 
     @Override
     public void update(Resume r) {

@@ -1,11 +1,15 @@
 package com.eurochemix.webapp.model;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Created by Ilya on 08.02.2016.
  */
-public class Resume {//implements Comparable<Resume> {
+//
+public class Resume implements Serializable {
+    static final long serialVersionUID = 1L;
+
     private String uuid;
     private String fullName;
     private String location;

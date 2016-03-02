@@ -5,6 +5,7 @@ import com.eurochemix.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +23,7 @@ abstract public class AbstractStorageTest {
 
 
     @Before
-    public void before() {
+    public void before() throws IOException {
         R1 = new Resume("Полное имя1", "Локация1", "www-ленинрад-спб.ру");
         R1.addContact(ContactType.MAIL, "mailme.gmail.com");
         R1.addContact(ContactType.PHONE, "777-77-77");
