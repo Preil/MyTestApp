@@ -2,6 +2,7 @@ package com.eurochemix.webapp;
 
 import com.eurochemix.webapp.model.ContactType;
 import com.eurochemix.webapp.model.Resume;
+import com.eurochemix.webapp.model.SectionType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,22 +28,35 @@ abstract public class AbstractStorageTest {
         R1 = new Resume("Полное имя1", "Локация1", "www-ленинрад-спб.ру");
         R1.addContact(ContactType.MAIL, "mailme.gmail.com");
         R1.addContact(ContactType.PHONE, "777-77-77");
+        R1.addObjective("Objective1");
+        R1.addMultiTextSection(SectionType.ACHIVEMENT, "R1_Achievment1", "R1_Achievment2");
+        R1.addMultiTextSection(SectionType.QUALIFICATIONS, "Java", "SQL");
 
         R2 = new Resume("Полное имя2", "Локация2", "www.yandex.ua");
         R2.addContact(ContactType.MAIL, "mailme.yandex.com");
         R2.addContact(ContactType.SKYPE, "preil200");
+        R2.addObjective("Objective2");
+        R2.addMultiTextSection(SectionType.ACHIVEMENT, "R2_Achievment1", "R2_Achievment2");
+        R2.addMultiTextSection(SectionType.QUALIFICATIONS, "PHP", "MySQL");
 
         R3 = new Resume("Полное имя3", "Локация3", "www.google.ру");
         R3.addContact(ContactType.MAIL, "mailme.hotbox.com");
         R3.addContact(ContactType.PHONE, "222-55-11");
+        R3.addObjective("Objective3");
+        R3.addMultiTextSection(SectionType.ACHIVEMENT, "R3_Achievment1", "R3_Achievment2");
+        R3.addMultiTextSection(SectionType.QUALIFICATIONS, "Scala", "PostgreSQL");
 
         storage.clear();
         storage.save(R2);
         storage.save(R1);
         storage.save(R3);
 
+        //TODO add experience and education
+
+
 //        System.out.println(R1.getLocation());
     }
+
     @Test
     public void testClear() throws Exception {
         storage.clear();
@@ -69,6 +83,10 @@ abstract public class AbstractStorageTest {
         assertEquals(R2, storage.load(R2.getUuid()));
         assertEquals(R3, storage.load(R3.getUuid()));
 
+        System.out.println(storage.load(R1.getUuid()));
+        System.out.println(storage.load(R2.getUuid()));
+        System.out.println(storage.load(R3.getUuid()));
+
     }
 
     @Test
@@ -84,13 +102,24 @@ abstract public class AbstractStorageTest {
             @Override
             public int compare(Resume o1, Resume o2) {
                 int cmp = o1.getFullName().compareTo(o2.getFullName());
-                if(cmp!=0) return cmp;
+                if (cmp != 0) return cmp;
                 return o1.getFullName().compareTo(o2.getFullName());
             }
         });
         assertEquals(list, storage.getAllSorted());
         System.out.println(list);
         System.out.println(storage.getAllSorted());
+    }
+
+    @Test
+    public void testGetAll() throws Exception {
+
+
+    }
+
+    @Test
+    public void testExists() throws Exception {
+        assertEquals(3, storage.size());
     }
 
     @Test

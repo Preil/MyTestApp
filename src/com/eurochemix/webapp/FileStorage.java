@@ -57,15 +57,14 @@ public abstract class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doUpdate(File file, Resume r) {
-
+        write(file, r);
     }
 
     @Override
     protected Resume doLoad(File file) {
-//        InputStream is = new FileInputStream(file);
-//        DataInputStream dos = new DataInputStream(is);
-        //TODO
-        return null;
+        if(exist(file)){
+            return read(file);
+        }else throw new WebAppException("File "+file.getAbsolutePath()+" does npt exist");
     }
 
     @Override
@@ -77,11 +76,13 @@ public abstract class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doGetAll() {
-        List<Resume> listResume = new ArrayList<>();
-//        File[] files = dir.listFiles(); // создаем массив типа файл - передаем в нее список файлов из нашей директории
-//        if (files == null) throw new WebAppException("The directory is empty"); //проверяем на нуль-пустая директория
-//        for (File file : files) { // для перебираем каждый файл и читаем его
-//            listResume.add(read(file));
+
+        File[] files = dir.listFiles(); // создаем массив типа файл - передаем в нее список файлов из нашей директории
+        List<Resume> listResume = new ArrayList<>(files.length);
+        if (files == null) throw new WebAppException("The directory is empty"); //проверяем на нуль-пустая директория
+        for (File file : files) { // для перебираем каждый файл и читаем его
+            listResume.add(read(file));
+        }
         return listResume;
     }
 

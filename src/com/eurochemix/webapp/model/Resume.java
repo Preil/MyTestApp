@@ -40,7 +40,10 @@ public class Resume implements Serializable {
     }
 
     public Resume() {
+    }
 
+    public Resume(String uuid) {
+        this.uuid = uuid;
     }
 
     public void addSection(SectionType type, Section section) {
@@ -101,9 +104,17 @@ public class Resume implements Serializable {
         this.homePage = homePage;
     }
 
+    public void addObjective (String value){
+        addSection(SectionType.OBJECTIVE, new TextSection(value));
+    }
+    public void addMultiTextSection(SectionType type, String... values){
+        addSection(type, new MultiTextSection(values));
+    }
+
+
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        return Objects.hash(uuid, fullName, location, homePage, contacts, sections);
     }
 
     @Override
@@ -115,7 +126,12 @@ public class Resume implements Serializable {
             return false;
         }
         final Resume other = (Resume) obj;
-        return uuid.equals(other.uuid);
+        return Objects.equals(this.uuid, other.uuid)
+                && Objects.equals(this.fullName, other.fullName)
+                && Objects.equals(this.location, other.location)
+                && Objects.equals(this.homePage, other.homePage)
+                && Objects.equals(this.contacts, other.contacts)
+                && Objects.equals(this.sections, other.sections);
     }
 
     @Override
