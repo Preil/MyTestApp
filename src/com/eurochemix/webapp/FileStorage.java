@@ -2,8 +2,7 @@ package com.eurochemix.webapp;
 
 import com.eurochemix.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,9 +49,25 @@ public abstract class FileStorage extends AbstractStorage<File> {
         write(file, r); // передаем в метод write имя созданного файла и обїект резюме
     }
 
-    abstract protected void write(File file, Resume r);
+    protected void write(File file, Resume r){
+        try{
+            write(new FileOutputStream(file),r);
+        }catch (IOException e){
+            throw new WebAppException("Could not write file"+file.getAbsolutePath(),r,e);
+        }
+    }
 
-    abstract protected Resume read(File file);
+    protected Resume read(File file){
+        try{
+            return read(new FileInputStream(file));
+        }catch (IOException e){
+            throw new WebAppException("Could not read file"+file.getName(),e);
+        }
+    }
+
+    abstract protected void write(OutputStream os, Resume r) throws IOException;
+
+    abstract protected Resume read(InputStream is) throws IOException;
 
 
     @Override
@@ -62,9 +77,9 @@ public abstract class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doLoad(File file) {
-        if(exist(file)){
+        if (exist(file)) {
             return read(file);
-        }else throw new WebAppException("File "+file.getAbsolutePath()+" does npt exist");
+        } else throw new WebAppException("File " + file.getAbsolutePath() + " does npt exist");
     }
 
     @Override

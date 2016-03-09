@@ -10,4 +10,5 @@ public class Organization implements Serializable {
 
     private  Link link;
     List<OrganizationPeriod> periods;
+
 }

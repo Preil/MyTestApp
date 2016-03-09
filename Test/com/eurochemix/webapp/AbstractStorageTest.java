@@ -111,16 +111,8 @@ abstract public class AbstractStorageTest {
         System.out.println(storage.getAllSorted());
     }
 
-    @Test
-    public void testGetAll() throws Exception {
 
 
-    }
-
-    @Test
-    public void testExists() throws Exception {
-        assertEquals(3, storage.size());
-    }
 
     @Test
     public void testSize() throws Exception {
