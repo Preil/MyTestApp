@@ -1,10 +1,13 @@
 package com.eurochemix.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
 
 /**
  * Created by Ilya on 11.02.2016.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public enum SectionType implements Serializable {
 
     OBJECTIVE("Позиция"),

@@ -32,15 +32,23 @@ abstract public class AbstractStorageTest {
         R1.addMultiTextSection(SectionType.ACHIVEMENT, "R1_Achievment1", "R1_Achievment2");
         R1.addMultiTextSection(SectionType.QUALIFICATIONS, "Java", "SQL");
 
+//        R1.addOrganizationSection(SectionType.EXPIRIENCE,
+//                new Organization("Organization11",null,
+//                        new Organization.Period(LocalDate.of(2005, Month.JANUARY, 1),Organization.Period.NOW,"position1", "content1"),
+//                        new Organization.Period(2001, Month.MARCH, 2005, Month.JANUARY,"position2", "content2")),
+//                new Link("Organization12","http://Organization12.ru"));
+
+
+
         R2 = new Resume("Полное имя2", "Локация2", "www.yandex.ua");
-        R2.addContact(ContactType.MAIL, "mailme.yandex.com");
+        R2.addContact(ContactType.MAIL, "mailme@yandex.com");
         R2.addContact(ContactType.SKYPE, "preil200");
         R2.addObjective("Objective2");
         R2.addMultiTextSection(SectionType.ACHIVEMENT, "R2_Achievment1", "R2_Achievment2");
         R2.addMultiTextSection(SectionType.QUALIFICATIONS, "PHP", "MySQL");
 
         R3 = new Resume("Полное имя3", "Локация3", "www.google.ру");
-        R3.addContact(ContactType.MAIL, "mailme.hotbox.com");
+        R3.addContact(ContactType.MAIL, "mailme@hotbox.com");
         R3.addContact(ContactType.PHONE, "222-55-11");
         R3.addObjective("Objective3");
         R3.addMultiTextSection(SectionType.ACHIVEMENT, "R3_Achievment1", "R3_Achievment2");
