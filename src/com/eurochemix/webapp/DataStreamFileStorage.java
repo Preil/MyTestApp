@@ -3,10 +3,9 @@ package com.eurochemix.webapp;
 import com.eurochemix.webapp.model.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.*;
 
 /**
  * Created by Ilya on 28.02.2016.
@@ -52,6 +51,7 @@ public class DataStreamFileStorage extends FileStorage {
                 SectionType type = entry.getKey();
                 Section section = entry.getValue();
                 writeString(dos, type.name());
+
                 switch (type) {
                     case OBJECTIVE:
                         writeString(dos, ((TextSection) section).getValue());
@@ -66,7 +66,23 @@ public class DataStreamFileStorage extends FileStorage {
                                 writeString(dos, value);
                             }
                         });
+                    case EDUCATION:
+                    case EXPIRIENCE:
+                        writeCollection(dos, ((OrganizationSection) section).getValues(), (org) -> {
+                            dos.writeUTF(org.getLink().getName());
+                            dos.writeUTF(org.getLink().getUrl());
+                            writeCollection(dos, org.getPeriods(), period -> {
+                                DataStreamFileStorage.this.writeLocalDate(dos, period.getStartDate());
+                                DataStreamFileStorage.this.writeLocalDate(dos, period.getEndDate());
+                                dos.writeUTF(period.getPosition());
+                                dos.writeUTF(period.getContent());
+                            });
+
+                        });
+                        break;
+
                 }
+
             }
         }
     }
@@ -87,7 +103,6 @@ public class DataStreamFileStorage extends FileStorage {
             final int sectionSize = dis.readInt();
 
             for (int i = 0; i < sectionSize; i++) {
-
                 SectionType sectionType = SectionType.valueOf(readString(dis));
                 switch (sectionType) {
                     case OBJECTIVE:
@@ -97,6 +112,14 @@ public class DataStreamFileStorage extends FileStorage {
                     case QUALIFICATIONS:
                         r.addSection(sectionType, new MultiTextSection(readList(dis, () -> readString(dis))));
                         break;
+                    case EDUCATION:
+                    case EXPIRIENCE:
+                        r.addSection(sectionType,
+                                new OrganizationSection(readList(dis, () -> new Organization(new Link(dis.readUTF(),dis.readUTF()),
+                                        readList(dis, ()-> new Organization.Period(readLocalDate(dis),readLocalDate(dis), dis.readUTF(), dis.readUTF()))))));
+                        break;
+
+
                 }
 
             }
@@ -104,12 +127,6 @@ public class DataStreamFileStorage extends FileStorage {
         }
 
     }
-
-
-
-
-
-
 
 
     private void writeString(DataOutputStream dos, String str) throws IOException { // эти методы созданы для проверки записываемых значений объекта на ноль
@@ -136,6 +153,7 @@ public class DataStreamFileStorage extends FileStorage {
     // тоже самое делаем для чтения коллекций - создаем внутренний интерфейс типизированный Т,
     private interface ElementReader<T> {
         T read() throws IOException; // с методом read, который возвращает объект типа Т
+
     }
 
     // пишем метод для чтения коллекций, метод принимает объект dis типа DataInputStream и реализует интерфейс ElementReader,
@@ -150,6 +168,16 @@ public class DataStreamFileStorage extends FileStorage {
             list.add(reader.read()); // переопределен через анонимный класс в момент вызова метода чтения колеекций readList
         }// все это действо называется паттерном проектирования "Стратегия", создание объекта через анонимный класс,
         return list; // в Java 1.8 можно заменить использованием лямбда выражений
+    }
+
+    private void writeLocalDate(DataOutputStream dos, LocalDate ld) throws IOException {
+        Objects.requireNonNull(ld, "Local date can not be null, use Period.NOW");
+        dos.writeInt(ld.getYear());
+        dos.writeUTF(ld.getMonth().name());
+    }
+
+    private LocalDate readLocalDate(DataInputStream dis) throws IOException{
+        return LocalDate.of(dis.readInt(), Month.valueOf(dis.readUTF()),1);
     }
 
 }

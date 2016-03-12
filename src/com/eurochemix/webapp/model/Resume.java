@@ -19,14 +19,14 @@ public class Resume implements Serializable {
 
     private String uuid;
     private String fullName;
-    private String location;
-    private String homePage;
+    private String location="";
+    private String homePage="";
     private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
     private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public static final Resume EMPTY;
 
-    static { // Статический блок инициализации, который выполняется один раз при загрузки класса
+    static { // Статический блок инициализации, который выполняется один раз при загрузке класса
         EMPTY = new Resume();
 
     }

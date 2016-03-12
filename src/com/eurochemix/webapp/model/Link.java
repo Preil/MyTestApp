@@ -3,6 +3,7 @@ package com.eurochemix.webapp.model;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by Ilya on 09.02.2016.
@@ -10,18 +11,20 @@ import java.io.Serializable;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Link implements Serializable {
+    static final long serialVersionUID = 1L;
 
     public static Link EMPTY = new Link();
     private final String name;
     private final String url;
 
     public Link() {
-        this("", null);
+        this("", "");
     }
 
     public Link(String name, String url) {
+        Objects.requireNonNull(name, "name is null");
         this.name = name;
-        this.url = url;
+        this.url = url==null?"":url;
     }
 
     public Link(Link link) {
@@ -30,6 +33,14 @@ public class Link implements Serializable {
 
     public Link empty() {
         return EMPTY;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
@@ -58,4 +69,6 @@ public class Link implements Serializable {
         result = 31 * result + (url != null ? url.hashCode() : 0);
         return result;
     }
+
+
 }
