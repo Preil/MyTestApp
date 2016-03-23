@@ -14,8 +14,18 @@ public enum ContactType implements Serializable{
     PHONE("Контактный телефон"),
     MOBILE("Мобильный телефон"),
     HOME_PHONE("Домашний телефон"),
-    SKYPE("Skype"),
-    MAIL("Почта"),
+    SKYPE("Skype"){
+        @Override
+        public String toHtml(String value) {
+            return "<a href='skype:" + value + "'>" + value + "</a>";
+        }
+    },
+    MAIL("Почта") {
+        @Override
+        public String toHtml(String value) {
+            return "<a href='mailto:" + value + "'>" + value + "</a>";
+        }
+    },
     ICQ("ICQ"),
     WEB_PAGE("Web page");
 
@@ -31,4 +41,8 @@ public enum ContactType implements Serializable{
 
     // создаем массив элементов тип "ТипКонтакта" и заполняем его значениями типов
     public static ContactType[] VALUES = ContactType.values();
+
+    public String toHtml(String value) {
+        return title + ": " + value;
+    }
 }
