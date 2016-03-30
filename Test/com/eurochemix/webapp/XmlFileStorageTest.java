@@ -1,5 +1,7 @@
 package com.eurochemix.webapp;
 
+import com.eurochemix.webapp.Storage.XmlFileStorage;
+
 /**
  * Created by Ilya on 09.03.2016.
  */

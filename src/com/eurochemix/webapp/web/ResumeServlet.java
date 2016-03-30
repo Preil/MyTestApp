@@ -1,6 +1,6 @@
 package com.eurochemix.webapp.web;
 
-import com.eurochemix.webapp.XmlFileStorage;
+import com.eurochemix.webapp.Storage.XmlFileStorage;
 import com.eurochemix.webapp.model.Resume;
 
 import javax.servlet.http.HttpServlet;
