@@ -1,5 +1,6 @@
-package com.eurochemix.webapp;
+package com.eurochemix.webapp.Storage;
 
+import com.eurochemix.webapp.WebAppException;
 import com.eurochemix.webapp.model.Resume;
 
 import java.io.IOException;

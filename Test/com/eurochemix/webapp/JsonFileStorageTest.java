@@ -1,5 +1,7 @@
 package com.eurochemix.webapp;
 
+import com.eurochemix.webapp.Storage.JsonFileStorage;
+
 /**
  * Created by Ilya on 09.03.2016.
  */

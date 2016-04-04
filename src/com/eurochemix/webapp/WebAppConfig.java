@@ -1,7 +1,7 @@
 package com.eurochemix.webapp;
 
 import com.eurochemix.webapp.Storage.IStorage;
-import com.eurochemix.webapp.Storage.XmlFileStorage;
+import com.eurochemix.webapp.Storage.SqlStorage;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -31,10 +31,13 @@ public class WebAppConfig {
 
             appProps = new Properties();
             appProps.load(webAppIs);
-            storage = new XmlFileStorage(appProps.getProperty("storage.dir"));
-            appProps.getProperty("db.url");
-            appProps.getProperty("db.user");
-            appProps.getProperty("db.password");
+//            storage = new XmlFileStorage(appProps.getProperty("storage.dir"));
+
+            storage = new SqlStorage(
+            appProps.getProperty("db.url"),
+            appProps.getProperty("db.user"),
+            appProps.getProperty("db.password"));
+
 
         } catch (Exception e){
             throw new IllegalStateException(e);

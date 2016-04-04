@@ -1,5 +1,6 @@
 package com.eurochemix.webapp;
 
+import com.eurochemix.webapp.Storage.IStorage;
 import com.eurochemix.webapp.model.ContactType;
 import com.eurochemix.webapp.model.Resume;
 import com.eurochemix.webapp.model.SectionType;
